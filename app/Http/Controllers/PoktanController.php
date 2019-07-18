@@ -5,9 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-use App\Petani;
+use App\Poktan;
 
-class PetaniController extends Controller
+class PoktanController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -21,16 +21,16 @@ class PetaniController extends Controller
     }
 
     public function show($id) {
-        $petani = Petani::where('id',$id)->orWhere('nik',$id)->first();
-        if($petani) {
+        $poktan = Poktan::where('id',$id)->orWhere('nik',$id)->first();
+        if($poktan) {
             return response()->json([
                 'status' => true,
-                'message' => $petani,
+                'message' => $poktan,
             ], 200);
         } else {
             return response()->json([
                 'status' => false,
-                'message' => 'Petani tidak ditemukan!'
+                'message' => 'Poktan tidak ditemukan!'
             ]);
         }
     }
@@ -38,10 +38,10 @@ class PetaniController extends Controller
     public function update(Request $request, $id) {
         // $validated = $request->validated();
         // return response()->json([$request->name]);
-        $petani = Petani::find($id);
+        $poktan = Poktan::find($id);
         $input = $request->all();
-        $petani->fill($input)->save();
-        if ($petani) {
+        $poktan->fill($input)->save();
+        if ($poktan) {
             return response()->json([
                 'status' => true,
                 'message' => 'Berhasil update!',
@@ -54,12 +54,12 @@ class PetaniController extends Controller
         }
     }
     public function index() {
-        $petanis = Petani::all();
-        if ($petanis) {
+        $poktans = Poktan::all();
+        if ($poktans) {
             return response()->json(
                 [
                     'status' => true,
-                    'message' => $petanis
+                    'message' => $poktans
                 ], 200);
         } else {
             return response()->json(
@@ -71,9 +71,9 @@ class PetaniController extends Controller
     }
 
     public function delete($id) {
-        $petani = Petani::find($id);
-        $petani->delete();
-        if($petani) {
+        $poktan = Poktan::find($id);
+        $poktan->delete();
+        if($poktan) {
             return response()->json([
                 'status' => true,
                 'message' => 'Berhasil menghapus data!'
@@ -86,8 +86,8 @@ class PetaniController extends Controller
         }
     }
     public function massdelete(Request $request) {
-        $petanis = DB::table('petani')->whereIn('id', $request->input('id'))->delete();
-        if ( $petanis ) {
+        $poktans = DB::table('poktan')->whereIn('id', $request->input('id'))->delete();
+        if ( $poktans ) {
             return response()->json([
                 'status' => true,
                 'message' => 'Berhasil menghapus data!'
@@ -102,8 +102,8 @@ class PetaniController extends Controller
 
     public function insert (Request $request) {
         $data = $request->all();
-        $petani = Petani::create($data);
-        if ( $petani ) {
+        $poktan = Poktan::create($data);
+        if ( $poktan ) {
             return response()->json([
                 'status' => true,
                 'message' => 'Berhasil menambah data!'

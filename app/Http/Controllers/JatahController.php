@@ -40,17 +40,6 @@ class JatahController extends Controller
         // return response()->json([$request->name]);
         $jatah = Jatah::find($id);
         $input = $request->all();
-        if($request->has('password')) {
-            $password = Hash::make($request->password);
-            if (Hash::check($request->password, $jatah->password)) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Password tidak boleh sama seperti sebelumnya!'
-                ]);
-            } else {
-                $input['password'] = $password;
-            }
-        }
         $jatah->fill($input)->save();
         if ($jatah) {
             return response()->json([

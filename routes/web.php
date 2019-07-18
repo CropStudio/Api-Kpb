@@ -41,4 +41,11 @@ $router->group([
     $router->delete('/jatah/{id}', 'JatahController@delete');
     $router->put('/jatah/{id}', 'JatahController@update');
     $router->post('/jatah', 'JatahController@insert');
+    //POKTAN
+    $router->get('/poktan/{id}', 'PoktanController@show');
+    $router->put('/poktan/massdelete', 'PoktanController@massdelete');
+    $router->get('/poktan', 'PoktanController@index');
+    $router->delete('/poktan/{id}', 'PoktanController@delete');
+    $router->put('/poktan/{id}', 'PoktanController@update');
+    $router->post('/poktan', 'PoktanController@insert');
 });
