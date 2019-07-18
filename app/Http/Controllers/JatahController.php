@@ -21,7 +21,7 @@ class JatahController extends Controller
     }
 
     public function show($id) {
-        $jatah = Jatah::where('id',$id)->orWhere('nik',$id)->first();
+        $jatah = Jatah::where('id',$id)->first();
         if($jatah) {
             return response()->json([
                 'status' => true,
