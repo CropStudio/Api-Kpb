@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 
-class Petani extends Model
+class Jatah extends Model
 {
 
     /**
@@ -17,7 +17,7 @@ class Petani extends Model
      * @var array
      */
     protected $fillable = [
-        'nama', 'nik', 'jenis_kelamin', 'komoditas', 'id_poktan', 'luas_lahan', 'id_user'
+        'jumlah', 'id_pupuk', 'id_poktan', 'id_petani'
     ];
 
     /**
@@ -25,5 +25,5 @@ class Petani extends Model
      *
      * @var array
      */
-    protected $table = 'petani';
+    protected $table = 'jatah';
 }

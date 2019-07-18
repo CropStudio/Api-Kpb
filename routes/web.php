@@ -34,4 +34,11 @@ $router->group([
     $router->delete('/petani/{id}', 'PetaniController@delete');
     $router->put('/petani/{id}', 'PetaniController@update');
     $router->post('/petani', 'PetaniController@insert');
+    //JATAH
+    $router->get('/jatah/{id}', 'JatahController@show');
+    $router->put('/jatah/massdelete', 'JatahController@massdelete');
+    $router->get('/jatah', 'JatahController@index');
+    $router->delete('/jatah/{id}', 'JatahController@delete');
+    $router->put('/jatah/{id}', 'JatahController@update');
+    $router->post('/jatah', 'JatahController@insert');
 });
