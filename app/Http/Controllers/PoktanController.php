@@ -21,7 +21,7 @@ class PoktanController extends Controller
     }
 
     public function show($id) {
-        $poktan = Poktan::where('id',$id)->orWhere('nik',$id)->first();
+        $poktan = Poktan::where('id',$id)->first();
         if($poktan) {
             return response()->json([
                 'status' => true,

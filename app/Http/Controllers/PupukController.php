@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Pupuk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-use App\Anak;
-
-class AnakController extends Controller
+class PupukController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -21,16 +20,16 @@ class AnakController extends Controller
     }
 
     public function show($id) {
-        $anak = Anak::where('id',$id)->first();
-        if($anak) {
+        $pupuk = Pupuk::where('id',$id)->first();
+        if($pupuk) {
             return response()->json([
                 'status' => true,
-                'message' => $anak,
+                'message' => $pupuk,
             ], 200);
         } else {
             return response()->json([
                 'status' => false,
-                'message' => 'Anak tidak ditemukan!'
+                'message' => 'Pupuk tidak ditemukan!'
             ]);
         }
     }
@@ -38,10 +37,10 @@ class AnakController extends Controller
     public function update(Request $request, $id) {
         // $validated = $request->validated();
         // return response()->json([$request->name]);
-        $anak = Anak::find($id);
+        $pupuk = Pupuk::find($id);
         $input = $request->all();
-        $anak->fill($input)->save();
-        if ($anak) {
+        $pupuk->fill($input)->save();
+        if ($pupuk) {
             return response()->json([
                 'status' => true,
                 'message' => 'Berhasil update!',
@@ -54,12 +53,12 @@ class AnakController extends Controller
         }
     }
     public function index() {
-        $anaks = Anak::all();
-        if ($anaks) {
+        $pupuks = Pupuk::all();
+        if ($pupuks) {
             return response()->json(
                 [
                     'status' => true,
-                    'message' => $anaks
+                    'message' => $pupuks
                 ], 200);
         } else {
             return response()->json(
@@ -71,9 +70,9 @@ class AnakController extends Controller
     }
 
     public function delete($id) {
-        $anak = Anak::find($id);
-        $anak->delete();
-        if($anak) {
+        $pupuk = Pupuk::find($id);
+        $pupuk->delete();
+        if($pupuk) {
             return response()->json([
                 'status' => true,
                 'message' => 'Berhasil menghapus data!'
@@ -86,8 +85,8 @@ class AnakController extends Controller
         }
     }
     public function massdelete(Request $request) {
-        $anaks = DB::table('anak')->whereIn('id', $request->input('id'))->delete();
-        if ( $anaks ) {
+        $pupuks = DB::table('pupuk')->whereIn('id', $request->input('id'))->delete();
+        if ( $pupuks ) {
             return response()->json([
                 'status' => true,
                 'message' => 'Berhasil menghapus data!'
@@ -102,8 +101,8 @@ class AnakController extends Controller
 
     public function insert (Request $request) {
         $data = $request->all();
-        $anak = Anak::create($data);
-        if ( $anak ) {
+        $pupuk = Pupuk::create($data);
+        if ( $pupuk ) {
             return response()->json([
                 'status' => true,
                 'message' => 'Berhasil menambah data!'

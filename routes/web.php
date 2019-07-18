@@ -55,4 +55,11 @@ $router->group([
     $router->delete('/anak/{id}', 'PoktanController@delete');
     $router->put('/anak/{id}', 'PoktanController@update');
     $router->post('/anak', 'PoktanController@insert');
+    //PUPUK
+    $router->get('/pupuk/{id}', 'PupukController@show');
+    $router->put('/pupuk/massdelete', 'PupukController@massdelete');
+    $router->get('/pupuk', 'PupukController@index');
+    $router->delete('/pupuk/{id}', 'PupukController@delete');
+    $router->put('/pupuk/{id}', 'PupukController@update');
+    $router->post('/pupuk', 'PupukController@insert');
 });
