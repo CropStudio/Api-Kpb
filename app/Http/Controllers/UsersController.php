@@ -128,6 +128,8 @@ class UsersController extends Controller
 
     public function insert (Request $request) {
         $data = $request->all();
+        $password = Hash::make($request->password);
+        $data['password'] = $password;
         $user = User::create($data);
         if ( $user ) {
             return response()->json([

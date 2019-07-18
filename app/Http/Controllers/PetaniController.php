@@ -113,8 +113,6 @@ class PetaniController extends Controller
 
     public function insert (Request $request) {
         $data = $request->all();
-        $password = Hash::make($request->password);
-        $data['password'] = $password;
         $petani = Petani::create($data);
         if ( $petani ) {
             return response()->json([
