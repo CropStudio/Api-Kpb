@@ -49,12 +49,12 @@ $router->group([
     $router->put('/poktan/{id}', 'PoktanController@update');
     $router->post('/poktan', 'PoktanController@insert');
     //ANAK
-    $router->get('/anak/{id}', 'PoktanController@show');
-    $router->put('/anak/massdelete', 'PoktanController@massdelete');
-    $router->get('/anak', 'PoktanController@index');
-    $router->delete('/anak/{id}', 'PoktanController@delete');
-    $router->put('/anak/{id}', 'PoktanController@update');
-    $router->post('/anak', 'PoktanController@insert');
+    $router->get('/anak/{id}', 'AnakController@show');
+    $router->put('/anak/massdelete', 'AnakController@massdelete');
+    $router->get('/anak', 'AnakController@index');
+    $router->delete('/anak/{id}', 'AnakController@delete');
+    $router->put('/anak/{id}', 'AnakController@update');
+    $router->post('/anak', 'AnakController@insert');
     //PUPUK
     $router->get('/pupuk/{id}', 'PupukController@show');
     $router->put('/pupuk/massdelete', 'PupukController@massdelete');
