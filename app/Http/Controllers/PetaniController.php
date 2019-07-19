@@ -54,7 +54,11 @@ class PetaniController extends Controller
         }
     }
     public function index() {
-        $petanis = Petani::all();
+//        $petanis = Petani::all();
+        $petanis = DB::table('petani')
+            ->join('poktan', 'petani.id_poktan', '=', 'poktan.id')
+            ->select('*', 'poktan.nama as nama_poktan')
+            ->get();
         if ($petanis) {
             return response()->json(
                 [
