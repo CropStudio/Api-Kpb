@@ -21,7 +21,14 @@ class PetaniController extends Controller
     }
 
     public function show($id) {
-        $petani = Petani::where('id',$id)->orWhere('nik',$id)->first();
+
+        $petani = DB::table('petani')
+            ->select('petani.id','petani.nik','petani.nama','petani.jenis_kelamin','petani.komoditas','petani.jenis_kelamin',
+                              'petani.luas_lahan', 'poktan.nama as nama_poktan', 'poktan.id as id_poktan', 'poktan.kabupaten',
+                'poktan.kecamatan', 'poktan.desa')
+            ->leftJoin('poktan','petani.id_poktan','=','poktan.id')
+            ->where('petani.nik' ,'=' ,$id)
+            ->first();
         if($petani) {
             return response()->json([
                 'status' => true,

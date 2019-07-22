@@ -27,6 +27,8 @@ $router->group([
     $router->delete('/user/{id}', 'UsersController@delete');
     $router->put('/user/{id}', 'UsersController@update');
     $router->post('/user', 'UsersController@insert');
+    $router->post('/registrasipetani', 'UsersController@registerPetani');
+    $router->post('/loginpetani', 'UsersController@loginPetani');
     //PETANI
     $router->get('/petani/{id}', 'PetaniController@show');
     $router->put('/petani/massdelete', 'PetaniController@massdelete');

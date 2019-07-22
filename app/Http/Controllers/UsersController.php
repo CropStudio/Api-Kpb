@@ -143,4 +143,76 @@ class UsersController extends Controller
             ], 200);
         }
     }
+
+    public function registerPetani(Request $request)
+    {
+        $nik       = $request->input('nik');
+        $nama      = $request->input('nama');
+        $notelp    = $request->input('notelp');
+        $password  = Hash::make($request->input('password'));
+        $roles     = $request->input('role');
+        $imageKtp  = $request->file('fotoktp');
+        $image     = $request->file('fotokk');
+
+        $cekNik = User::where('nik',$nik)->first();
+
+        if($cekNik){
+            $res['status'] = false;
+            $res['message'] = 'Nik anda sudah teregistrasi';
+            return response($res);
+        }else{
+            //move ktp
+            $fotoKtp            = "ktp".time().'.'.$imageKtp->getClientOriginalExtension();
+            $destinationPathKtp = 'ktp';
+            $imageKtp->move($destinationPathKtp, $fotoKtp);
+            //move ktp
+            $fotokk             = "kk".time().'.'.$image->getClientOriginalExtension();
+            $destinationPath    = 'kk';
+            $image->move($destinationPath, $fotokk);
+            $register = User::create([
+                'nik'           => $nik,
+                'nama'          => $nama,
+                'no_hp'         => $notelp,
+                'role'          => $roles,
+                'password'      => $password,
+                'ktp'           => $fotoKtp,
+                'kartukeluarga' => $fotokk,
+            ]);
+            if ($register){
+                $res['status'] = true;
+                $res['message'] = 'Berhasil registrasi';
+                return response($res,200);
+            }else{
+                $res['status'] = false;
+                $res['message'] = 'Gagal registrasi!';
+                return response($res);
+            }
+        }
+    }
+
+    public function loginPetani(Request $request){
+        $nik = $request->input('nik');
+        $password = $request->input('password');
+        $login = User::where('nik', $nik)->first();
+        if (!$login) {
+            $res['status'] = false;
+            $res['message'] = 'Nik tidak terdaftar!';
+            return response($res);
+        }else{
+            if (Hash::check($password, $login->password)) {
+                $api_token    = sha1(time());
+                $create_token = User::where('id', $login->id)->update(['token' => $api_token]);
+                if ($create_token) {
+                    $res['status'] = true;
+                    $res['token'] = $api_token;
+                    $res['message'] = $login;
+                    return response($res);
+                }
+            }else{
+                $res['status'] = false;
+                $res['message'] = 'Periksa kembali email atau password anda';
+                return response()->json($res);
+            }
+        }
+    }
 }
