@@ -115,4 +115,23 @@ class AnakController extends Controller
             ], 200);
         }
     }
+
+    public function cekAnak($id){
+        $anak = DB::table('petani')
+            ->select('petani.nik','petani.nama','anak.nama','anak.tanggal_lahir','anak.jenis_kelamin')
+            ->join('anak','petani.id','=','anak.id_user')
+            ->where('petani.id' ,'=' ,$id)
+            ->get();
+        if(!$anak->isEmpty()) {
+            return response()->json([
+                'status' => true,
+                'message' => $anak,
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Data tidak ditemukan!'
+            ]);
+        }
+    }
 }

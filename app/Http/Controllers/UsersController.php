@@ -190,6 +190,35 @@ class UsersController extends Controller
         }
     }
 
+    public function uploadPotopropil(Request $request, $id){
+        $user = User::find($id);
+        $input = $request->all();
+        if ($request->hasFile('poto_profile')) {
+            $image = $request->file('poto_profile');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = 'potopropil';
+            $image->move($destinationPath, $name);
+
+            $input['poto_profile'] = $name;
+            //dd($input);
+            $user->fill($input)->save();
+            if ($user) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Berhasil update foto!',
+                    'foto'    => $user->poto_profile
+                ], 200);
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Gagal update!',
+                ]);
+            }
+        } else {
+            return 0;
+        }
+    }
+
     public function loginPetani(Request $request){
         $nik = $request->input('nik');
         $password = $request->input('password');

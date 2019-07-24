@@ -29,6 +29,7 @@ $router->group([
     $router->post('/user', 'UsersController@insert');
     $router->post('/registrasipetani', 'UsersController@registerPetani');
     $router->post('/loginpetani', 'UsersController@loginPetani');
+    $router->post('/potopropil/{id}', 'UsersController@uploadPotopropil');
     //PETANI
     $router->get('/petani/{id}', 'PetaniController@show');
     $router->put('/petani/massdelete', 'PetaniController@massdelete');
@@ -57,6 +58,7 @@ $router->group([
     $router->delete('/anak/{id}', 'AnakController@delete');
     $router->put('/anak/{id}', 'AnakController@update');
     $router->post('/anak', 'AnakController@insert');
+    $router->get('/cekanak/{id}', 'AnakController@cekAnak');
     //PUPUK
     $router->get('/pupuk/{id}', 'PupukController@show');
     $router->put('/pupuk/massdelete', 'PupukController@massdelete');
