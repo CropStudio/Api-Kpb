@@ -26,4 +26,15 @@ class Petani extends Model
      * @var array
      */
     protected $table = 'petani';
+
+    public function poktan()
+    {
+        return $this->belongsTo('App\Poktan');
+    }
+    public function scopeGabung($query)
+    {
+        return $query->leftJoin('poktan', 'petani.id_poktan', '=', 'poktan.id')
+            ->leftJoin('users', 'petani.id_user', '=', 'users.id')
+            ->select('*', 'petani.nik as nik', 'poktan.nama as nama_poktan', 'petani.id', 'petani.nama as nama');
+    }
 }

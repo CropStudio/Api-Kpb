@@ -21,7 +21,7 @@ class JatahController extends Controller
     }
 
     public function show($id) {
-        $jatah = Jatah::where('id',$id)->first();
+        $jatah = Jatah::gabung()->where('jatah.id',$id)->first();
         if($jatah) {
             return response()->json([
                 'status' => true,
@@ -54,7 +54,8 @@ class JatahController extends Controller
         }
     }
     public function index() {
-        $jatahs = Jatah::all();
+//        $jatahs = Jatah::all();
+        $jatahs = Jatah::gabung()->get();
         if ($jatahs) {
             return response()->json(
                 [

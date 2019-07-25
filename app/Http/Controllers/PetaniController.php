@@ -21,13 +21,8 @@ class PetaniController extends Controller
     }
 
     public function show($id) {
-
-        $petani = DB::table('petani')
-            ->select('petani.id','petani.nik','petani.nama','petani.jenis_kelamin','petani.komoditas','petani.jenis_kelamin',
-                              'petani.luas_lahan', 'poktan.nama as nama_poktan', 'poktan.id as id_poktan', 'poktan.kabupaten',
-                'poktan.kecamatan', 'poktan.desa')
-            ->leftJoin('poktan','petani.id_poktan','=','poktan.id')
-            ->where('petani.nik' ,'=' ,$id)
+        $petani = Petani::gabung()->where('petani.id', '=', $id)
+            ->orWhere('petani.nik', '=', $id)
             ->first();
         if($petani) {
             return response()->json([
@@ -62,10 +57,7 @@ class PetaniController extends Controller
     }
     public function index() {
 //        $petanis = Petani::all();
-        $petanis = DB::table('petani')
-            ->join('poktan', 'petani.id_poktan', '=', 'poktan.id')
-            ->select('*', 'poktan.nama as nama_poktan')
-            ->get();
+        $petanis = Petani::gabung()->get();
         if ($petanis) {
             return response()->json(
                 [

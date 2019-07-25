@@ -26,4 +26,8 @@ class Anak extends Model
      * @var array
      */
     protected $table = 'anak';
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

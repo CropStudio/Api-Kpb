@@ -18,7 +18,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'nama', 'nik', 'no_hp', 'role', 'password', 'ktp', 'kartukeluarga', 'poto_profile', 'token'
+        'nama', 'nik', 'no_hp', 'role', 'tanggal_lahir', 'password', 'ktp', 'kartukeluarga', 'token'
     ];
 
     /**
@@ -29,4 +29,15 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     protected $hidden = [
         'password',
     ];
+    public function anaks()
+    {
+        return $this->hasMany('App\Anak');
+    }
+    public function scopeGabung($query)
+    {
+        return $query->leftJoin('petani', 'petani.id_user', '=', 'users.id')
+            ->leftJoin('anak', 'users.id', '=', 'anak.id_user')
+            ->leftJoin('poktan', 'petani.id_poktan', '=', 'poktan.id')
+            ->select('*', 'users.nik as nik', 'poktan.nama as nama_poktan', 'users.id', 'users.nama as nama', 'anak.nama as nama_anak', 'anak.tanggal_lahir as tanggal_lahir_anak', 'anak.jenis_kelamin as jenis_kelamin_anak');
+    }
 }

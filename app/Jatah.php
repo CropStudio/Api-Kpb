@@ -26,4 +26,12 @@ class Jatah extends Model
      * @var array
      */
     protected $table = 'jatah';
+
+    public function scopeGabung($query)
+    {
+        return $query->leftJoin('pupuk', 'jatah.id_pupuk', '=', 'pupuk.id')
+            ->leftJoin('poktan', 'jatah.id_poktan', '=', 'poktan.id')
+            ->leftJoin('petani', 'jatah.id_petani', '=', 'petani.id')
+            ->select('*', 'pupuk.nama as nama_pupuk', 'poktan.nama as nama_poktan', 'petani.nama as nama_petani', 'jatah.id', 'jatah.id_poktan as id_poktan');
+    }
 }

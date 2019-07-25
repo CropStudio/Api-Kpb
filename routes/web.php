@@ -51,6 +51,7 @@ $router->group([
     $router->delete('/poktan/{id}', 'PoktanController@delete');
     $router->put('/poktan/{id}', 'PoktanController@update');
     $router->post('/poktan', 'PoktanController@insert');
+    $router->put('/poktan/upload', 'PoktanController@upload');
     //ANAK
     $router->get('/anak/{id}', 'AnakController@show');
     $router->put('/anak/massdelete', 'AnakController@massdelete');

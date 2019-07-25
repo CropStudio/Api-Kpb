@@ -21,7 +21,7 @@ class AnakController extends Controller
     }
 
     public function show($id) {
-        $anak = Anak::where('id',$id)->first();
+        $anak = Anak::where('id',$id)->with('user')->first();
         if($anak) {
             return response()->json([
                 'status' => true,
@@ -54,7 +54,7 @@ class AnakController extends Controller
         }
     }
     public function index() {
-        $anaks = Anak::all();
+        $anaks = Anak::with('user')->get();
         if ($anaks) {
             return response()->json(
                 [

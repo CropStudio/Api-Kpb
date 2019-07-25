@@ -26,4 +26,8 @@ class Poktan extends Model
      * @var array
      */
     protected $table = 'poktan';
+    public function petanis()
+    {
+        return $this->hasMany('App\Petani');
+    }
 }

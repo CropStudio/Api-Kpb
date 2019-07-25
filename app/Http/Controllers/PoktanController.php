@@ -115,4 +115,40 @@ class PoktanController extends Controller
             ], 200);
         }
     }
+    public function upload (Request $request) {
+        $datas = $request->data;
+        $gagal = array();
+
+        foreach ($datas as $data) {
+            $desa = trim($data['Desa']);
+            $kab = trim($data['Kabupaten']);
+            $poktan = trim($data['Poktan']);
+            $kec = trim($data['Kecamatan']);
+            $cek = Poktan::where('desa', '=', $desa)
+                ->where('nama', 'LIKE', '%' . $poktan . '%')
+                ->where('kabupaten', 'LIKE', '%' . $kab . '%')
+                ->where('kecamatan', 'LIKE', '%' . $kec . '%')->count();
+            if (!$cek) {
+                $poktan = Poktan::create([
+                    'nama' => $poktan,
+                    'kecamatan' => $kec,
+                    'kabupaten' => $kab,
+                    'desa' => $desa
+                ]);
+                if (!$poktan) {
+                    array_push($gagal, $poktan);
+                }
+            }
+        }
+        if (count($gagal) == 0) {
+            $res['success'] = true;
+            $res['message'] = 'Berhasil upload data! ' . count($datas) .' Data terupload!';
+            return response($res);
+        } else {
+            $res['success'] = false;
+            $res['data'] = $gagal;
+            $res['message'] = 'Beberapa data tidak dapat di upload! '. count($datas) .' Data terupload!';
+            return response($res);
+        }
+    }
 }

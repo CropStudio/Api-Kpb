@@ -21,7 +21,7 @@ class UsersController extends Controller
     }
 
     public function show($id) {
-        $user = User::where('id',$id)->orWhere('nik',$id)->first();
+        $user = User::gabung()->where('id',$id)->orWhere('nik',$id)->first();
         if($user) {
             return response()->json([
                 'status' => true,
@@ -65,7 +65,8 @@ class UsersController extends Controller
         }
     }
     public function index() {
-        $users = User::all();
+//        $users = User::all();
+        $users = User::gabung()->get();
         if ($users) {
             return response()->json(
                 [
