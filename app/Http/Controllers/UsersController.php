@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 use App\User;
+use App\Petani;
 
 class UsersController extends Controller
 {
@@ -232,6 +233,7 @@ class UsersController extends Controller
             if (Hash::check($password, $login->password)) {
                 $api_token    = sha1(time());
                 $create_token = User::where('id', $login->id)->update(['token' => $api_token]);
+                Petani::where('nik', $login->nik)->update(['id_user' => $login->id]);
                 if ($create_token) {
                     $res['status'] = true;
                     $res['token'] = $api_token;

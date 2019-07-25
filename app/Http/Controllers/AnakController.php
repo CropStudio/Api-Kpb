@@ -118,9 +118,10 @@ class AnakController extends Controller
 
     public function cekAnak($id){
         $anak = DB::table('petani')
-            ->select('petani.nik','petani.nama','anak.nama','anak.tanggal_lahir','anak.jenis_kelamin')
-            ->join('anak','petani.id','=','anak.id_user')
-            ->where('petani.id' ,'=' ,$id)
+            ->select('petani.nik', 'anak.id','anak.nama','anak.jenis_kelamin','anak.tanggal_lahir')
+            ->join('anak','petani.id_user','=','anak.id_user')
+            ->join('users','users.id','=','petani.id_user')
+            ->where('users.id' ,'=' ,$id)
             ->get();
         if(!$anak->isEmpty()) {
             return response()->json([
