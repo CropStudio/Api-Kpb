@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 use App\Anak;
+use Carbon\Carbon;
 
 class AnakController extends Controller
 {
@@ -53,6 +54,7 @@ class AnakController extends Controller
             ]);
         }
     }
+
     public function index() {
         $anaks = Anak::with('user')->get();
         if ($anaks) {
@@ -124,9 +126,15 @@ class AnakController extends Controller
             ->where('users.id' ,'=' ,$id)
             ->get();
         if(!$anak->isEmpty()) {
+            //$convert = substr($anak->tanggal_lahir,4);
+            foreach ($anak as $tahun){
+                $convert = substr($tahun->tanggal_lahir,0, 4);
+                $umur = Carbon::now()->year - $convert;
+                $tahun->umur = $umur;
+            }
             return response()->json([
-                'status' => true,
-                'message' => $anak,
+                'status'  => true,
+                'message' => $anak
             ], 200);
         } else {
             return response()->json([
